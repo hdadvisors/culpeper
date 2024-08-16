@@ -1,0 +1,139 @@
+---
+title: "Culpeper Subdivision Analysis"
+date: today
+format:
+  html:
+    toc: true
+    toc-location: left
+    number-sections: true
+    theme: flatly
+    author: "Jonathan Knopf (jonathan@hdadvisors.net)"
+  # pdf:
+  #   fig-pos: "H"
+  #   mainfont: "Open Sans"
+execute: 
+  echo: true
+  warning: false
+  freeze: auto
+code-fold: true
+code-overflow: scroll
+---
+
+# Introduction
+
+## Background
+
+```add background context```
+
+## Objectives
+
+The primary objectives of this project include:
+
+* Determining the number of parcels potentially affected by proposed changes to the subdivision ordinance.
+* Estimating the potential number of new subdivisions under current regulations versus proposed changes.
+* Examining the scope of properties already reserved for conservation.
+
+The secondary objective of this project is to assess how these proposed changes might affect the type and pace of residential growth in the county.
+
+## Data
+
+Culpeper County tax parcel records:
+
+* Parcel ID / PID (join field for parcel shapefile)
+* Acreage
+* Zone
+* Land Use Code / Description
+* Neighborhood
+
+Other parcel-level County data records include:
+
+* Parcels in Land Use Program by use category (Agricultural/Horticultural/Forest)
+* Conservation easements
+
+Spatial data from the County:
+
+* Parcel shapefile (with join field from tax parcel records) \*
+* Subdivision boundary shapefile \*
+* Future land use shapefile
+* Urban Services Boundary shapefile
+* Water sewer service area shapefile
+* Zoning shapefile (if zoning not included in parcel records)
+
+\* Necessary for analysis
+
+Data available in County staff reports to the Board of Supervisors:
+
+* Approved subdivision history:
+  * Annual data (1993-2023)
+  * Number of subdivisions and resultant lots for Major Divisions, Minor Divisions, 10 Acre Divisions, and Family Partitions
+  * Total number of lots and plats
+
+* A-1 and RA zoning breakdown:
+  * Total number of parcels and acreage zoned A-1 or RA
+  * Number of A-1 and RA parcels by size (21 categories from 0.1 to 500.0+ acres)
+  * Total number of parcels and acreage zoned R-1, R-2, R-3, R-4, or RR
+
+Additional non-county data that will help inform analysis include:
+
+* U.S. Census Bureau Building Permit Survey
+* FEMA National Flood Hazard Layer shapefile
+* MLS sales records for new single-family homes 
+
+## Policy
+
+Culpeper County Code of Ordinances:
+
+* Ch. 6 - BUILDING REGULATIONS
+* Ch. 8 - EROSION AND SEDIMENTATION CONTROL
+* Ch. 12, Art. II - ASSESSMENT OF REAL ESTATE DEVOTED TO AGRICULTURAL, HORTICULTURAL AND FOREST USES (last updated 2017)
+* APPENDIX A - ZONING ORDINANCE (last updated August 2023)
+* APPENDIX B - SUBDIVISION ORDINANCE (last updated January 2024)
+* APPENDIX D - CONSERVATION EASEMENT PROGRAM (last updated October 2023)
+
+Culpeper County Comprehensive Plan (2023)
+
+Materials from April 9, 2024 Board of Supervisors Rules Committee meeting on proposed subdivision ordinance revisions
+
+# Policy Analysis
+
+Basic assessment of development regulations in Culpeper County’s current subdivision ordinance, and a comparison of those elements to the proposed changes. Analysis will consider how properties are defined eligible for subdivision, what densities and geometries are allowed, and other important considerations.
+
+# Development Analysis
+
+Quantitative summaries of historical residential development in Culpeper County, focused on units produced via property subdivision. Assessment of past subdivision approvals, building permits, and single-family home prices.
+
+For the Development Analysis, HDA will use data to illustrate trends on residential subdivisions, single-family home development, and the single-family for-sale market. Specific analytical tasks include:
+
+* Charting the annual pace of subdivisions and resultant lots from 1993 to 2023
+* Comparing lot creation with residential construction via building permit data
+* Examining historical prices and availability of new single-family homes built on subdivided lots
+* Highlighting trends in square footage, number of bedrooms, lot coverage, and other attributes among new single-family homes
+
+# Parcel Analysis
+
+Application of policy analysis to a detailed spatial analysis of parcel and land use data. Calculation of eligible properties and number of potential lots under current versus proposed regulations. Incorporation of land conservation data and other relevant development limitations to increase accuracy of estimates.
+
+For the Parcel Analysis, HDA will apply the specific attributes and geometric criteria enumerated in the current and proposed subdivision regulations to county parcel records. This process will determine:
+
+* The number of eligible parcels and potential resultant lots under current subdivision regulations
+* The number of eligible parcels and potential resultant lots under proposed subdivision regulations
+
+To create more realistic estimates, HDA will incorporate discrete variables that limit the location and intensity of potential residential development on properties that would otherwise be eligible for subdivision. These variables include, but are not limited to:
+
+* Parcels in the Land Use Program or containing conservation easements
+* Presence of streams, wetlands, or other natural drainageways
+* Flood zones
+* Existing or potential road frontage
+
+# Findings
+
+In addition to summarizing the previous analysis sections, HDA will include in the Full Report a number of relevant findings and takeaways. These brief points might address:
+
+* The overall scope and significance of the proposed subdivision ordinance changes
+* The degree to which subdivisions are limited by factors outside of any current or proposed regulations in the subdivision ordinance, including state requirements for roads and environmental protections
+* Whether any increased limitations on residential subdivisions might restrict development activity significantly enough to cap development at or below historical averages
+
+
+
+
+
