@@ -98,6 +98,36 @@ Materials from April 9, 2024 Board of Supervisors Rules Committee meeting on pro
 
 Basic assessment of development regulations in Culpeper County’s current subdivision ordinance, and a comparison of those elements to the proposed changes. Analysis will consider how properties are defined eligible for subdivision, what densities and geometries are allowed, and other important considerations.
 
+## Minimum lot size
+
+**Current requirements**
+
+The primary criteria to determine whether a parcel can be subdivided is its lot size. Current minimum lot sizes for each zoning district are shown in the table below.
+
+| District | Minimum Lot Size          | Notes                                        |
+|----------|---------------------------|----------------------------------------------|
+| A-1      | 5 acres                   | 10 acres for lots on private roads/easements |
+| RA       | 3 acres                   | 10 acres for lots on private roads/easements |
+| RR       | 3 acres                   |                                              |
+| R-1      | 40,000 sqft (0.918 acres) |                                              |
+| R-2      | 25,000 sqft (0.574 acres) |                                              |
+| R-3      | 15,000 sqft (0.344 acres) | 8,700 sq ft for townhouses                   |
+| R-4      | 5 acres                   | For multifamily dwellings                    |
+| PUD      | 200 acres                 | Maximum 3 dwelling units per acre            |
+
+**Proposed requirements**
+
+| District | Minimum Lot Size          | Notes                                        |
+|----------|---------------------------|----------------------------------------------|
+| A-1      | 5 acres                   | 10 acres for lots on private roads/easements |
+| RA       | 3 acres                   | 10 acres for lots on private roads/easements |
+| RR       | 3 acres                   |                                              |
+| R-1      | 40,000 sqft (0.918 acres) |                                              |
+| R-2      | 25,000 sqft (0.574 acres) |                                              |
+| R-3      | 15,000 sqft (0.344 acres) | 8,700 sq ft for townhouses                   |
+| R-4      | 5 acres                   | For multifamily dwellings                    |
+| PUD      | 200 acres                 | Maximum 3 dwelling units per acre            |
+
 # Development Analysis
 
 Quantitative summaries of historical residential development in Culpeper County, focused on units produced via property subdivision. Assessment of past subdivision approvals, building permits, and single-family home prices.

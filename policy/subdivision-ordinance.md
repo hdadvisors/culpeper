@@ -1,3 +1,9 @@
+# Culpeper County Subdivision Ordinance
+
+
+#################################################
+
+
 # ARTICLE I. PURPOSE, AUTHORITY, TITLE AND JURISDICTION
 
 ## 100. Purpose.
@@ -28,6 +34,10 @@ To all plats and plans, boundary surveys, easement plats or other instruments wh
 
 *(Ords. of 9-5-2000; 4-5-2022)*
 
+
+#################################################
+
+
 # ARTICLE II. DEFINITIONS
 
 ## 200. General.
@@ -50,6 +60,10 @@ Unless otherwise expressly stated, the following terms shall, for the purposes o
 Other terms or words used herein shall be interpreted or defined in accordance with Article 2 Definitions of the Zoning Ordinance (Appendix A, Culpeper County Code).
 
 *(Ords. of 5-24-1989; 12-12-1989; 9-5-2000; 5-7-2013)*
+
+
+#################################################
+
 
 # ARTICLE III. SKETCH PLAN SUBMISSION PROCEDURE AND REQUIREMENTS
 
@@ -81,6 +95,10 @@ Other terms or words used herein shall be interpreted or defined in accordance w
   - **322.2** A layout of the proposed subdivision including the general location of streets, lots, sanitary and storm sewers, and recreation land where applicable.
   
 *(Ords. of 3-3-1987; 5-7-2013)*
+
+
+#################################################
+
 
 # ARTICLE IV. PRELIMINARY PLAN SUBMISSION PROCEDURES AND REQUIREMENTS
 
@@ -229,6 +247,10 @@ The preliminary plan shall be accompanied by the following supplementary data:
 
 *(Ords. of 5-24-1989; 1-3-1995; 9-5-2000; 8-7-2001; 5-7-2013; 4-5-2022)*
 
+
+#################################################
+
+
 # ARTICLE V. FINAL PLAN SUBMISSION PROCEDURES AND REQUIREMENTS
 
 ## 500. Final plan submission.
@@ -315,6 +337,10 @@ If a developer records a final plat, which may be a section of a subdivision as 
 Recordation of the record plat of a subdivision shall not be deemed to be acceptance by the County of any street or road or other public place shown on the plat for maintenance, repair, or operation thereof.
 
 *(Ords. of 9-5-2000; 5-7-2013; 4-5-2022)*
+
+
+#################################################
+
 
 # ARTICLE VI. MINOR DIVISIONS—PLANS EXEMPTED FROM STANDARD PROCEDURE
 
@@ -417,6 +443,10 @@ Minor boundary line adjustments between adjoining property owners where no new b
   - **614.2.2** An adjustment in which as a result of the adjustment any easement or utility right-of-way is to be relocated or altered without the express consent of all persons holding any interest therein; or
   - **614.2.3** No boundary line adjustment shall isolate an existing drain field from the lot it was intended to serve.
 - **614.3** An adjustment of lot lines which would expand the size of a nonconforming lot or increase the size of any lot by more than twenty-five percent (25%) shall be restricted as to subsequent minor divisions under Section 610 of this Ordinance.
+
+
+#################################################
+
 
 # ARTICLE VII. DESIGN STANDARDS
 
@@ -551,6 +581,8 @@ All subdivisions proposed for development in the Lake Pelham—Mountain Run Lake
 *(Ords. of 3-3-1992; 5-7-2013)*
 
 
+#################################################
+
 
 # ARTICLE VIII. IMPROVEMENT SPECIFICATIONS
 
@@ -615,6 +647,10 @@ A developer may provide for the voluntary funding of off-site road improvements 
 *852* "Maintenance of such road" as used in this section, means maintenance of the streets, curb, gutter, drainage facilities, utilities or other street improvements, including the correction of defects or damages and the removal of snow, water or debris, so as to keep such road reasonably open for public usage.
 
 *(Ord. of 9-5-2000)*
+
+
+#################################################
+
 
 # ARTICLE IX. ADMINISTRATION AND ENFORCEMENT
 
