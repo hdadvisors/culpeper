@@ -1,5 +1,5 @@
 ---
-title: "Culpeper Subdivision Analysis"
+title: "Culpeper County Subdivision Analysis"
 date: today
 format:
   html:
@@ -8,6 +8,7 @@ format:
     number-sections: true
     theme: flatly
     author: "Jonathan Knopf (jonathan@hdadvisors.net)"
+    code-overflow: wrap
   # pdf:
   #   fig-pos: "H"
   #   mainfont: "Open Sans"
@@ -17,13 +18,16 @@ execute:
   freeze: auto
 code-fold: true
 code-overflow: scroll
+from: markdown+emoji
 ---
 
 # Introduction
 
 ## Background
 
-```add background context```
+In early 2024, Culpeper County officials began considering potential changes to their subdivision ordinance, which governs how land can be divided into smaller parcels for development. According to County documents, these proposed changes aim to support Comprehensive Plan goals and address concerns about current regulations' effectiveness in preserving agricultural land and managing growth.
+
+However, the proposed modifications---which change lot size minimums, clustering guidelines, and other variables---could potentially have the unintended consequence of restricting housing production and limiting overall supply in the county. Fully assessing the potential impacts of these reforms will help inform ongoing policy conversations.
 
 ## Objectives
 
@@ -37,20 +41,19 @@ The secondary objective of this project is to assess how these proposed changes 
 
 ## Data
 
-Culpeper County tax parcel records:
+This analysis will use the following data.
+
+### County parcel-level records
 
 * Parcel ID / PID (join field for parcel shapefile)
 * Acreage
 * Zone
 * Land Use Code / Description
 * Neighborhood
-
-Other parcel-level County data records include:
-
 * Parcels in Land Use Program by use category (Agricultural/Horticultural/Forest)
 * Conservation easements
 
-Spatial data from the County:
+### County spatial data
 
 * Parcel shapefile (with join field from tax parcel records) \*
 * Subdivision boundary shapefile \*
@@ -61,19 +64,21 @@ Spatial data from the County:
 
 \* Necessary for analysis
 
-Data available in County staff reports to the Board of Supervisors:
+### County reports 
 
-* Approved subdivision history:
-  * Annual data (1993-2023)
-  * Number of subdivisions and resultant lots for Major Divisions, Minor Divisions, 10 Acre Divisions, and Family Partitions
-  * Total number of lots and plats
+Approved subdivision history:
 
-* A-1 and RA zoning breakdown:
-  * Total number of parcels and acreage zoned A-1 or RA
-  * Number of A-1 and RA parcels by size (21 categories from 0.1 to 500.0+ acres)
-  * Total number of parcels and acreage zoned R-1, R-2, R-3, R-4, or RR
+* Annual data (1993-2023)
+* Number of subdivisions and resultant lots for Major Divisions, Minor Divisions, 10 Acre Divisions, and Family Partitions
+* Total number of lots and plats
 
-Additional non-county data that will help inform analysis include:
+A-1 and RA zoning breakdown:
+
+* Total number of parcels and acreage zoned A-1 or RA
+* Number of A-1 and RA parcels by size (21 categories from 0.1 to 500.0+ acres)
+* Total number of parcels and acreage zoned R-1, R-2, R-3, R-4, or RR
+
+### Other data
 
 * U.S. Census Bureau Building Permit Survey
 * FEMA National Flood Hazard Layer shapefile
@@ -81,26 +86,48 @@ Additional non-county data that will help inform analysis include:
 
 ## Policy
 
-Culpeper County Code of Ordinances:
+The primary policy sources used for this analysis are Culpeper County's Zoning Ordinance (last updated August 2023) and Subdivision Ordinance (last updated January 2024).
+
+Descriptions of potential reforms are sourced from memos and presentations created by County staff for Board of Supervisors and Planning Commission meetings.
+
+Additional reference materials include the current Culpeper County Comprehensive Plan (adopted 2023), as well as the following chapters in the Code of Ordinances:
 
 * Ch. 6 - BUILDING REGULATIONS
 * Ch. 8 - EROSION AND SEDIMENTATION CONTROL
 * Ch. 12, Art. II - ASSESSMENT OF REAL ESTATE DEVOTED TO AGRICULTURAL, HORTICULTURAL AND FOREST USES (last updated 2017)
-* APPENDIX A - ZONING ORDINANCE (last updated August 2023)
-* APPENDIX B - SUBDIVISION ORDINANCE (last updated January 2024)
 * APPENDIX D - CONSERVATION EASEMENT PROGRAM (last updated October 2023)
-
-Culpeper County Comprehensive Plan (2023)
-
-Materials from April 9, 2024 Board of Supervisors Rules Committee meeting on proposed subdivision ordinance revisions
 
 # Policy Analysis
 
-Basic assessment of development regulations in Culpeper County’s current subdivision ordinance, and a comparison of those elements to the proposed changes. Analysis will consider how properties are defined eligible for subdivision, what densities and geometries are allowed, and other important considerations.
+::: {.callout-tip}
+## Key Policy Takeaways
+
+**1. Reduced development potential in rural areas**
+
+The proposed increases in minimum lot sizes for A-1 and RA districts (from 5 and 3 acres to potentially 10-20 and 6 acres respectively) would significantly reduce the number of lots that could be created through subdivision in these areas. This could decrease the overall supply of new housing, potentially driving up prices.
+
+**2. Shift towards clustered development**
+
+Options 3, 4, and 5 introduce clustering provisions, which could maintain or even increase housing unit yield in some cases. However, this shift may lead to a different housing product (smaller lots in cluster arrangements) that could affect market demand and pricing.
+
+**3. Increased development costs**
+
+The proposed changes, particularly Option 5, introduce more stringent road requirements aligned with VDOT standards. These infrastructure improvements could increase development costs, potentially leading to higher housing prices or discouraging some developments altogether.
+
+**4. Preservation of agricultural land**
+
+The clustering options and increased lot sizes aim to preserve more agricultural land. While this supports the Comprehensive Plan's goal of maintaining rural character, it may restrict the land available for housing development, potentially increasing land costs for developers.
+
+**5. Potential shift in development location**
+
+By making development in A-1 and RA districts more challenging, these changes may redirect housing development towards areas within the Urban Services Boundary and other identified growth areas, aligning with the Comprehensive Plan's goals. This could lead to more efficient use of existing infrastructure but may also increase competition for developable land in these areas.
+:::
+
+This section summarizes the important development regulations for residential subdivision in Culpeper County, and compares them to the set of four potential reforms presented to the Planning Commission by staff in August 2024. These are listed as Options 2 through 5. (Staff used Option 1 to describe a "no change" approach.)
 
 ## Minimum lot size
 
-**Current requirements**
+:pushpin: **Current requirements**
 
 The primary criteria to determine whether a parcel can be subdivided is its lot size. Current minimum lot sizes for each zoning district are shown in the table below.
 
@@ -115,32 +142,135 @@ The primary criteria to determine whether a parcel can be subdivided is its lot 
 | R-4      | 5 acres                   | For multifamily dwellings                    |
 | PUD      | 200 acres                 | Maximum 3 dwelling units per acre            |
 
-**Proposed requirements**
+<br>
+:arrows_counterclockwise: **Proposed requirements**
 
-| District | Minimum Lot Size          | Notes                                        |
-|----------|---------------------------|----------------------------------------------|
-| A-1      | 5 acres                   | 10 acres for lots on private roads/easements |
-| RA       | 3 acres                   | 10 acres for lots on private roads/easements |
-| RR       | 3 acres                   |                                              |
-| R-1      | 40,000 sqft (0.918 acres) |                                              |
-| R-2      | 25,000 sqft (0.574 acres) |                                              |
-| R-3      | 15,000 sqft (0.344 acres) | 8,700 sq ft for townhouses                   |
-| R-4      | 5 acres                   | For multifamily dwellings                    |
-| PUD      | 200 acres                 | Maximum 3 dwelling units per acre            |
+The proposed options significantly increase minimum lot sizes in the A-1 and RA districts, potentially reducing overall density in these areas. Options 3, 4, and 5 introduce clustering provisions, allowing for smaller lot sizes (1-2 acres) in exchange for preserving larger tracts of land.
+
+| Option | Minimum Lot Size |
+|--------|------------------|
+| Option 2 | RA: 6 acres<br>A1: 10 or 20 acres |
+| Option 3 | A-1: 20 acres<br>Clustered lots: As low as 1 or 2 acres |
+| Option 4 | A-1: 20 acres<br>Clustered lots: As low as 1 or 2 acres |
+| Option 5 | Clustered lots: 2 acres minimum |
+
+## Density
+
+:pushpin: **Current requirements**
+
+Residential density for new subdivisions in Culpeper County depends on the parcel's zoning.
+
+| Zoning District | Allowable Density                                      |
+|-----------------|--------------------------------------------------------|
+| A-1             | 1 dwelling unit per 5 acres                            |
+| RA              | 1 dwelling unit per 3 acres                            |
+| RR              | 1 dwelling unit per 3 acres                            |
+| R-1             | 1.09 dwelling units per acre (40,000 sq ft lots)       |
+| R-2             | 1.74 dwelling units per acre (25,000 sq ft lots)       |
+| R-3 (Single-family) | 2.90 dwelling units per acre (15,000 sq ft lots)       |
+| R-3 (Townhouse) | 5 dwelling units per acre                              |
+| R-3 (Multifamily) | 8 dwelling units per acre maximum                   |
+| R-4             | Varies (multifamily dwellings or condominiums)        |
+| PUD             | 3 dwelling units per acre maximum (gross density)      |
+
+<br>
+:arrows_counterclockwise: **Proposed requirements**
+
+The proposed options would generally reduce allowable subdivision densities across zoning districts, except when clustering is used.
+
+| Option | Density Allowances |
+|--------|---------------------|
+| Option 2 | Reduced (due to increased lot sizes) |
+| Option 3 | Decreased, but clustering allowed |
+| Option 4 | Decreased, but can maintain existing density if clustered |
+| Option 5 | Based on current density minus one right for the 70% open space tract |
+
+## Clustering
+
+:pushpin: **Current requirements**
+
+The cluster subdivision requirements in Culpeper County include core standards that apply across all eligible zoning districts, as well as specific requirements that vary by district.
+
+Universal requirements:
+
+1. Minimum development area: 5 acres
+2. Conservation area or open space: At least 40% of gross acreage
+3. Maximum number of units: No more than total density normally allowable in district
+
+Requirements by zoning district:
+
+| Requirement | RR | R-1 | R-2 | R-3 |
+|-------------|----|----|----|----|
+| Single-family dwelling lot coverage | ≤ 40% | ≤ 40% | ≤ 40% | ≤ 40% |
+| Townhouse unit lot coverage | - | - | - | ≤ 60% |
+| Townhouse groupings | - | - | - | ≤ 8 units |
+| Minimum lot size (sq ft) | 43,560 | 20,000 | 15,000 | 4,500 |
+| Minimum lot width (interior/corner) | 120'/120' | 85'/100' | 75'/90' | 50'/60' |
+| Front yard setback | 50' | 45' | 40' | 20' |
+| Side yard setback (interior/corner) | 20'/40' | 15'/25' | 10'/20' | 5'/15' |
+| Rear yard setback | 35' | 30' | 25' | 15' |
+
+::: {.callout-note}
+This table is based on the information provided in the zoning ordinance summary. The A-1 (Agricultural) and RA (Rural Area) districts are not included as they do not have specific cluster subdivision provisions mentioned in the provided documents.
+:::
+
+<br>
+:arrows_counterclockwise: **Proposed requirements**
+
+The proposed changes introduce clustering options for agricultural and rural areas (A-1 and RA). These new provisions range from allowing clustering to preserve large lots (Option 3), incentivizing it to maintain density (Option 4), to making it a requirement with significant land preservation (Option 5). These outline potential shifts towards more flexible development patterns in rural areas compared to the current fixed-lot approach.
+
+| Option | Clustering Provisions |
+|--------|------------------------|
+| Option 2 | Not mentioned |
+| Option 3 | Allowed, with most permitted dwelling units on smaller lots to preserve a large lot |
+| Option 4 | Allowed and incentivized to gain back density |
+| Option 5 | Required, with minimum 70% of land deed-restricted to one parcel |
+
+## Road Requirements
+
+:pushpin: **Current requirements**
+
+The following table summarizes the current road frontage requirements for residential subdivisions in Culpeper County across different zoning districts. These requirements apply to lots fronting on public streets.
+
+| Zoning District | Minimum Road Frontage (feet) |
+|-----------------|------------------------------|
+| A-1             | 250                          |
+| RA              | 200                          |
+| RR              | 200                          |
+| R-1             | 120                          |
+| R-2             | 100                          |
+| R-3             | 80                           |
+| R-4             | 200                          |
+
+<br>
+:arrows_counterclockwise: **Proposed requirements**
+
+The proposed changes introduce more varied road requirements compared to the current fixed frontage standards for each zoning district. 
+
+| Option | Road Requirements |
+|--------|---------------------|
+| Option 2 | 250ft frontage for RA to achieve 6-acre lot |
+| Option 3 | Could steer clusters on or off state-maintained roads |
+| Option 4 | Could steer clusters on or off state-maintained roads |
+| Option 5 | Align with VDOT entrance types (PE, LVC, commercial). Standards must be met before building permits issued. |
+
+
+
 
 # Development Analysis
 
+```
 Quantitative summaries of historical residential development in Culpeper County, focused on units produced via property subdivision. Assessment of past subdivision approvals, building permits, and single-family home prices.
 
-For the Development Analysis, HDA will use data to illustrate trends on residential subdivisions, single-family home development, and the single-family for-sale market. Specific analytical tasks include:
-
-* Charting the annual pace of subdivisions and resultant lots from 1993 to 2023
-* Comparing lot creation with residential construction via building permit data
-* Examining historical prices and availability of new single-family homes built on subdivided lots
-* Highlighting trends in square footage, number of bedrooms, lot coverage, and other attributes among new single-family homes
+* Chart the annual pace of subdivisions and resultant lots from 1993 to 2023
+* Compare lot creation with residential construction via building permit data
+* Examine historical prices and availability of new single-family homes built on subdivided lots
+* Highlight trends in square footage, number of bedrooms, lot coverage, and other attributes among new single-family homes
+```
 
 # Parcel Analysis
 
+```
 Application of policy analysis to a detailed spatial analysis of parcel and land use data. Calculation of eligible properties and number of potential lots under current versus proposed regulations. Incorporation of land conservation data and other relevant development limitations to increase accuracy of estimates.
 
 For the Parcel Analysis, HDA will apply the specific attributes and geometric criteria enumerated in the current and proposed subdivision regulations to county parcel records. This process will determine:
@@ -154,14 +284,15 @@ To create more realistic estimates, HDA will incorporate discrete variables that
 * Presence of streams, wetlands, or other natural drainageways
 * Flood zones
 * Existing or potential road frontage
+```
 
 # Findings
 
-In addition to summarizing the previous analysis sections, HDA will include in the Full Report a number of relevant findings and takeaways. These brief points might address:
-
+```
 * The overall scope and significance of the proposed subdivision ordinance changes
 * The degree to which subdivisions are limited by factors outside of any current or proposed regulations in the subdivision ordinance, including state requirements for roads and environmental protections
 * Whether any increased limitations on residential subdivisions might restrict development activity significantly enough to cap development at or below historical averages
+```
 
 
 

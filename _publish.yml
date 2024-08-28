@@ -1,0 +1,4 @@
+- source: culpeper.qmd
+  quarto-pub:
+    - id: f86b8c69-5c94-4548-b33d-a81023ddca78
+      url: 'https://jtknopf.quarto.pub/culpeper-county-subdivision-analysis'
