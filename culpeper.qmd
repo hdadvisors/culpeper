@@ -13,13 +13,32 @@ format:
   #   fig-pos: "H"
   #   mainfont: "Open Sans"
 execute: 
-  echo: true
+  echo: false
   warning: false
   freeze: auto
-code-fold: true
-code-overflow: scroll
+#code-fold: true
+#code-overflow: scroll
 from: markdown+emoji
 ---
+
+```{r}
+#| label: setup
+#| code-summary: "Setup code"
+
+library(tidyverse)
+library(sf)
+library(janitor)
+library(mapview)
+library(hdatools)
+library(scales)
+#library(ggtext)
+#library(ggridges)
+library(kableExtra)
+#library(reactable)
+#library(patchwork)
+library(formattable)
+
+```
 
 # Introduction
 
@@ -270,6 +289,262 @@ Quantitative summaries of historical residential development in Culpeper County,
 
 # Parcel Analysis
 
+| Description | Count |
+| --- | --- |
+| Total parcels in GIS data | 18,271 |
+| └── Parcels zoned RA or A-1 | 11,803 |
+| └─── Not already subdivided lots | 8,435 |
+| └──── Not a conservation easement | 8,204 |
+| └───── Over 6.0 acres | 4,309 |
+| └────── Not in floodplain | 4,290 |
+
+For properties covered only in part by the floodplain, that area is subtracted from the parcel geometry.
+
+Map showing all parcels meeting above criteria:
+
+```{r}
+#| label: parcel-map
+
+parcel_filter <- read_rds("gis/parcel_filter.rds")
+
+mapview(
+  parcel_filter,
+  zcol = "zoning",
+  layer.name = "Zoning",
+  label = FALSE,
+  popup = FALSE
+)
+
+```
+
+## Current potential
+
+Number of potential *new* subdivided lots based on current regulations.
+
+```{r}
+
+current <- parcel_filter |> 
+  st_drop_geometry() |> 
+  filter(
+    (zoning == "A1" & acres >= 10) | (zoning == "RA" & acres >= 6)
+  ) |> 
+  mutate(
+    potential_lots = 
+      case_when(
+        zoning == "A1" ~ floor(acres/5),
+        zoning == "RA" ~ floor(acres/3)
+    )
+  )
+
+current_sum <- current |> 
+  summarise(
+    parcels = n(),
+    lots = sum(potential_lots),
+    .by = "zoning"
+  ) |> 
+  adorn_totals()
+
+current_sum |> 
+  mutate(across(2:3, ~ formattable::comma(.x, digits = 0))) |> 
+  kable(
+    col.names = c("Zoning", "Eligible parcels", "Potential new lots"),
+    align = "lrr"
+    ) |> 
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive", "striped"))
+
+```
+
+::: {.callout-warning}
+### Note
+Methods do not yet incorporate road frontage requirements or clustering options.
+:::
+
+Methods:
+
+- Filter parcels to at least twice the lot size requirement for its zoning
+- Divide acreage by minimum lot size to calculate number of potential lots
+- Round down results to whole numbers
+
+```{r}
+#| label: fig-current
+
+current |> 
+  mutate(
+    bin = fct_case_when(
+      potential_lots == 1 ~ "1",
+      potential_lots == 2 ~ "2",
+      potential_lots == 3 ~ "3",
+      potential_lots == 4 ~ "4",
+      potential_lots == 5 ~ "5",
+      potential_lots >= 6 & potential_lots <= 9 ~ "6-9",
+      potential_lots >= 10 & potential_lots <= 19 ~ "10-19",
+      potential_lots >= 20 ~ "20+"
+    )
+  ) |> 
+  ggplot(aes(x = bin, fill = zoning)) +
+  facet_wrap(~zoning) +
+  geom_bar() +
+  scale_fill_hda() +
+  add_zero_line() +
+  labs(
+    title = "Most eligible parcels can create 1 or 2 new lots",
+    subtitle = "Under current regulations",
+    x = "New lots per parcel",
+    y = "Parcels"
+  ) +
+  theme_hda() +
+  theme(axis.title = element_text())
+
+```
+
+
+## Proposed potential
+
+### Option 2 {.unnumbered}
+
+*From staff presentation:*
+
+> **Increase Minimum Lot Sizes (Reduced Density)**
+>
+> * Raise the lot minimums for both districts, such as 6 acres for the RA and 10 or 20 acres for the A1.
+> * Require Road frontage requirements of 250ft. for RA to achieve 6-acre lot.
+> * Increases minimum lot size to where agricultural uses could be more easily enjoyed and benefit from local land use tax incentives. Such as 6+ acre minimum for some agricultural uses and 20+ acres for forestry uses.
+
+For this scenario, assume new minimum lot sizes:
+
+- RA: 6 acres
+- A1: 10 acres
+
+Total number of potential lots is less than half of the estimate under current regulations.
+
+```{r}
+
+opt2 <- parcel_filter |> 
+  st_drop_geometry() |>
+  filter(
+    (zoning == "A1" & acres >= 20) | (zoning == "RA" & acres >= 12)
+  ) |> 
+  mutate(
+    potential_lots = 
+      case_when(
+        zoning == "A1" ~ floor(acres/10),
+        zoning == "RA" ~ floor(acres/6)
+      ),
+    potential_lots = pmax(potential_lots - 1, 0)
+  )
+
+opt2_sum <- opt2 |> 
+  summarise(
+    parcels = n(),
+    lots = sum(potential_lots),
+    .by = "zoning"
+  ) |> 
+  adorn_totals()
+
+opt2_sum |> 
+  mutate(across(2:3, ~ formattable::comma(.x, digits = 0))) |> 
+  kable(
+    col.names = c("Zoning", "Eligible parcels", "Potential new lots"),
+    align = "lrr"
+    ) |> 
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive", "striped"))
+
+```
+
+::: {.callout-warning}
+### Note
+Methods do not yet incorporate road frontage requirements or clustering options.
+:::
+
+### Option 3 {.unnumbered}
+
+*From staff presentation:*
+
+> **Decrease allowed Density, Paired With Clustering**
+>
+> * For example, raise the A1 minimum to 20 acres but allow most of the permitted dwelling units to be on smaller lots to preserve a large lot.
+> * The minimum lot size for clustered lots could be as low as 1 or 2 acres.
+> * Could have a maximum lot size for clustered lots as well.
+> * Could steer clusters on or off state-maintained roads.
+
+Decreased density with clustering:
+
+- Increase A1 minimum lot size to 20 acres
+- Large lot preserved, but new lots can be 2 acres each
+
+*Based on staff proposals, assume no change to RA parcels in this scenario.*
+
+```{r}
+
+opt3 <- parcel_filter |> 
+  st_drop_geometry() |>
+  filter(
+    zoning == "A1" & acres >= 22
+  ) |> 
+  mutate(
+    potential_lots = pmax(floor((acres - 20) / 2), 0)
+  )
+
+opt3_sum <- opt3 |> 
+  summarise(
+    parcels = n(),
+    lots = sum(potential_lots),
+    .by = "zoning"
+  )
+
+opt3_sum |> 
+  mutate(across(2:3, ~ formattable::comma(.x, digits = 0))) |> 
+  kable(
+    col.names = c("Zoning", "Eligible parcels", "Potential new lots"),
+    align = "lrr"
+    ) |> 
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive", "striped"))
+
+```
+
+::: {.callout-warning}
+### Note
+Estimate for Option 3 does not incorporate road frontage and other potential limiting factors. Due to increased clustering density, number of potential new lots is far greater than current regulations, despite the large increase in minimum lot size.
+:::
+
+### Option 4 {.unnumbered}
+
+*From staff presentation:*
+
+> **Decrease allowed Density with Incentivized Clustering option (to gain density back)**
+>
+> Decrease the development rights allowed, allow for clustering, and allow for additional density if clustered.
+>
+> * For example, raise the A1 minimum to 20 acres, but allow for the old density of 5 acres per dwelling if all but one of the proposed lots are clustered.
+> * This preserves a large lot while still maintaining existing density.
+> * The minimum lot size for clustered lots could be as low as 1 or 2 acres.
+> * Could have a maximum lot size for clustered lots as well.
+> * Could steer clusters on or off state-maintained roads.
+
+```{r}
+
+```
+
+
+### Option 5 {.unnumbered}
+
+*From staff presentation:*
+
+> **Require clustering in A1/RA but allow option that uses current time-based regulations**
+>
+> Create a new primary minor subdivision ordinance that requires clustering, with an alternative option that uses the current time-based system and lot minimums.
+>
+> * Minimum 70% of land must be deed-restricted to one parcel with current rights of a parcel in A1/RA excepting subdivision rights
+> * Minimum 70% of any state road frontage must convey with the 70% land if practicable (if it can be achieved without reducing the permitted density in the 30% cluster
+>
+> 30% of land developable with the following conditions:
+> 
+> * The number of building rights would be the total density currently allowed less one right for the 70% open space tract.
+> * Minimum road standards would be required.
+> * Minimum lot size is 2 acres.
+> * Will need to possibly consider a soils overlay district. As some parcels in the “shrink-swell” soil areas could realize an increased density with this methodology.
+
+::: {.content-hidden}
 ```
 Application of policy analysis to a detailed spatial analysis of parcel and land use data. Calculation of eligible properties and number of potential lots under current versus proposed regulations. Incorporation of land conservation data and other relevant development limitations to increase accuracy of estimates.
 
@@ -285,6 +560,7 @@ To create more realistic estimates, HDA will incorporate discrete variables that
 * Flood zones
 * Existing or potential road frontage
 ```
+:::
 
 # Findings
 

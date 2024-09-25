@@ -9,11 +9,11 @@ library(mapview)
 
 county <- read_sf("gis/raw/county.shp")
 
-write_rds(parcel, "gis/county.rds")
+write_rds(county, "gis/county.rds")
 
 ## Parcels ----------------------------
 
-parcel_data <- read_csv("data/raw/parcel-data.csv") |> 
+parcel_csv <- read_csv("data/raw/parcel-data.csv") |> 
   select(
     id = 3,
     street = 92,
@@ -22,7 +22,7 @@ parcel_data <- read_csv("data/raw/parcel-data.csv") |>
     zip = 95
     )
 
-parcel <- read_sf("gis/raw/parcel.shp") |> 
+parcel_data <- read_sf("gis/raw/parcel.shp") |> 
   select(2:4, 11:12, 15, 17, 30:31, 47:49, 53:56) |> 
   clean_names() |> 
   rename(
@@ -30,8 +30,11 @@ parcel <- read_sf("gis/raw/parcel.shp") |>
     desc = descriptio,
     conservation = conservati
   ) |> 
-  left_join(parcel_data) |> 
+  left_join(parcel_csv) |> 
   select(1:16, 18:21, 19)
+
+parcel <- parcel_data |> 
+  mutate(geometry = st_make_valid(geometry))
 
 write_rds(parcel, "gis/parcel.rds")
 
@@ -57,12 +60,12 @@ write_rds(buildings, "gis/buildings.rds")
 roads <- read_sf("gis/raw/roads.shp") |> 
   clean_names() |> 
   select(-1) |> 
-  filter(road_type != 2) |> 
   mutate(
     road_type = case_match(
       road_type,
       0 ~ "Highway",
-      1 ~ "Secondary"
+      1 ~ "Secondary",
+      2 ~ "Private"
     )
   )
 
@@ -72,9 +75,10 @@ write_rds(roads, "gis/roads.rds")
 
 fema <- read_sf("gis/raw/fema.shp") |> 
   clean_names() |> 
-  select(5, 26)
+  select(5, 26) |> 
+  mutate(geometry = st_make_valid(geometry))
 
-write_rds(zoning, "gis/fema.rds")
+write_rds(fema, "gis/fema.rds")
 
 ## Water ------------------------------
 
