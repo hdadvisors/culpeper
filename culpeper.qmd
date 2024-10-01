@@ -38,6 +38,8 @@ library(kableExtra)
 #library(patchwork)
 library(formattable)
 
+pal <- hda_pal_discrete()(6)
+
 ```
 
 # Introduction
@@ -274,8 +276,6 @@ The proposed changes introduce more varied road requirements compared to the cur
 | Option 5 | Align with VDOT entrance types (PE, LVC, commercial). Standards must be met before building permits issued. |
 
 
-
-
 # Development Analysis
 
 ```
@@ -286,6 +286,86 @@ Quantitative summaries of historical residential development in Culpeper County,
 * Examine historical prices and availability of new single-family homes built on subdivided lots
 * Highlight trends in square footage, number of bedrooms, lot coverage, and other attributes among new single-family homes
 ```
+
+| Attribute | Major | Minor | 10 Acre | Family |
+|-------------------|----------------|----------------|-------------------|-----------------|
+| 1. Eligibility Criteria | No specific restrictions; applies when other division types are not applicable | Any existing parcel | Only in A-1 (Agricultural) or RA (Rural Residential) districts | In A-1, RA, RR, R-1, or R-2 districts; property owned for at least 5 years |
+| 2. Number of Lots Created | No specific limit | Up to 3 new lots plus remnant within a 5-year period | No specific limit mentioned | Single division per family member |
+| 3. Minimum Lot Size | As per zoning district requirements | As per zoning district requirements | 10 acres for each lot, including remnant | Minimum of zoning district or 1 acre, whichever is less |
+| 4. Road Access Requirements | As per VDOT standards | Existing street access | 50-foot wide easement to public street | 20-foot wide easement to public street |
+| 5. Review and Approval Process | Full preliminary and final plat review | Simplified review process | Simplified review process | Simplified review process |
+| 6. Development Standards | Full compliance with all subdivision standards | May be exempted from some standard procedures | May be exempted from some standard procedures | May be exempted from some standard procedures |
+| 7. Time Restrictions | None specified | No more than once every 5 years | None specified | Grantee cannot transfer for 5 years |
+| 8. Special Conditions or Restrictions | None specific to this type | Must not adversely affect remainder of parcel or adjoining property | Requires perpetual maintenance agreement for private roads | Only for immediate family members; affidavit required |
+| 9. Intended Purpose/Use | Large-scale residential development | Small-scale divisions of land | Large-lot rural development | Allowing property owners to give/sell land to family members |
+
+From 1993 through 2023, Culpeper County approved approximately 4,569 new lots via subdivision. Most of these were created before the Great Recession, peaking at 728 in 2005. Following a historical low of 37 new lots in 2013, subdivision activity has steadily increased, and is now comparable to the "pre-boom" pace set between 1995 and 2005.
+
+```{r}
+#| label: fig-subv-hist
+
+subdiv_hist <- read_rds("data/subdiv_hist.rds")
+
+subdiv_hist |> 
+  filter(var == "Total") |> 
+  ggplot(aes(x = year)) +
+  geom_line(aes(y = Lots), color = pal[1]) +
+  geom_col(aes(y = Plats), fill = pal[2]) +
+  scale_x_continuous(breaks = seq(1993, 2023, 2)) +
+  scale_y_continuous(breaks = seq(0, 750, 100), expand = c(0.01,0.05)) +
+  add_zero_line() +
+  labs(
+    title = "Approved subdivision history (1993-2023)",
+    subtitle = "Annual number of approved <span style='color:#8baeaa;'>**plats**</span> and <span style='color:#445ca9;'>**lots**</span>",
+    caption = "**Source:** *Culpeper County Subdivision History 1993-2023* staff report"
+  ) +
+  theme_hda() +
+  theme(
+    axis.text.x = element_text(angle = 90, vjust = 0.5)
+  )
+
+```
+
+
+
+```{r}
+#| label: fig-subv-hist-type
+
+subdiv_hist |> 
+  filter(var != "Total") |> 
+  mutate(var = factor(var, levels = c("Major", "Minor", "10 Acre", "Family"))) |> 
+  ggplot(aes(x = year)) +
+  facet_wrap(~var, axes = "all_x") +
+  #geom_text(data = ann_text, aes(x = year, y = Lots), label = "text") +
+  geom_line(aes(y = Lots), color = pal[1]) +
+  geom_col(aes(y = Plats), fill = pal[2]) +
+  coord_cartesian(ylim = c(0, 130)) +
+  scale_x_continuous(breaks = seq(1991, 2023, 4)) +
+  scale_y_continuous(
+    breaks = seq(0, 200, 25),
+    expand = c(0.01,0.01)
+    ) +
+  add_zero_line() +
+  labs(
+    title = "Approved subdivision history by division type",
+    subtitle = "Annual number of approved <span style='color:#8baeaa;'>**plats**</span> and <span style='color:#445ca9;'>**lots**</span>",
+    caption = "**Source:** *Culpeper County Subdivision History 1993-2023* staff report<br>**Note:** The 553 Major Division lots approved in 2005 exceed the scale used for this figure."
+  ) +
+  theme_hda() +
+  theme(
+    axis.text.x = element_text(angle = 90, vjust = 0.5)
+  )
+
+```
+
+
+```{r}
+
+#mls <- read_rds("data/mls_subdiv")
+
+
+```
+
 
 # Parcel Analysis
 
