@@ -247,3 +247,10 @@ mls <- read_csv("data/raw/mls-export.csv") |>
   )
 
 write_rds(mls, "data/mls_subdiv.rds")
+
+## Building Permits -------------------
+
+cbps <- read_csv("data/raw/cbps.csv") |> 
+  filter(GEOID == 51047)
+
+write_rds(cbps, "data/cbps.rds")

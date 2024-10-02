@@ -146,6 +146,48 @@ By making development in A-1 and RA districts more challenging, these changes ma
 
 This section summarizes the important development regulations for residential subdivision in Culpeper County, and compares them to the set of four potential reforms presented to the Planning Commission by staff in August 2024. These are listed as Options 2 through 5. (Staff used Option 1 to describe a "no change" approach.)
 
+## Division types
+
+County code outlines four different subdivision methods, each with their own rules and guidelines.
+
+According to the Culpeper County Subdivision Ordinance, there are four primary types of divisions. Specifically, Article VI of the Subdivision Ordinance outlines the following types of divisions:
+
+1. **Minor** divisions (Section 611)
+2. **10 Acre** divisions (Section 612)
+3. **Family** divisions (Section 613)
+
+The ordinance does not explicitly define a "**Major**" division category. However, it does distinguish between Minor divisions and those that require standard procedures (which could be considered "Major" divisions). Furthermore, county staff organized historical subdivision approval data into these four types. (See @sec-dev.)
+
+The tables below outline the main distinctions between the four division types.
+
+| Attribute | Major Division | Minor Division |
+|-------------------|----------------|----------------|
+| 1. Eligibility Criteria | No specific restrictions; applies when other division types are not applicable | Any existing parcel |
+| 2. Number of Lots Created | No specific limit | Up to 3 new lots plus remnant within a 5-year period |
+| 3. Minimum Lot Size | As per zoning district requirements | As per zoning district requirements |
+| 4. Road Access Requirements | As per VDOT standards | Existing street access |
+| 5. Review and Approval Process | Full preliminary and final plat review | Simplified review process |
+| 6. Development Standards | Full compliance with all subdivision standards | May be exempted from some standard procedures |
+| 7. Time Restrictions | None specified | No more than once every 5 years |
+| 8. Special Conditions or Restrictions | None specific to this type | Must not adversely affect remainder of parcel or adjoining property |
+| 9. Intended Purpose/Use | Large-scale residential development | Small-scale divisions of land |
+
+<br>
+
+| Attribute | 10 Acre Division | Family Division |
+|-------------------|-------------------|-----------------|
+| 1. Eligibility Criteria | Only in A-1 (Agricultural) or RA (Rural Residential) districts | In A-1, RA, RR, R-1, or R-2 districts; property owned for at least 5 years |
+| 2. Number of Lots Created | No specific limit mentioned | Single division per family member |
+| 3. Minimum Lot Size | 10 acres for each lot, including remnant | Minimum of zoning district or 1 acre, whichever is less |
+| 4. Road Access Requirements | 50-foot wide easement to public street | 20-foot wide easement to public street |
+| 5. Review and Approval Process | Simplified review process | Simplified review process |
+| 6. Development Standards | May be exempted from some standard procedures | May be exempted from some standard procedures |
+| 7. Time Restrictions | None specified | Grantee cannot transfer for 5 years |
+| 8. Special Conditions or Restrictions | Requires perpetual maintenance agreement for private roads | Only for immediate family members; affidavit required |
+| 9. Intended Purpose/Use | Large-lot rural development | Allowing property owners to give/sell land to family members |
+
+Major subdivisions follow standard procedures and are suitable for larger-scale developments, while Minor subdivisions offer a more streamlined process for creating up to three new lots every five years. The 10 Acre division option, available only in agricultural and rural residential zones, allows for the creation of large rural lots with fewer regulatory hurdles. Family divisions provide an opportunity for landowners to transfer property to immediate family members with reduced lot size requirements and simplified procedures, but come with restrictions on future transfers.
+
 ## Minimum lot size
 
 :pushpin: **Current requirements**
@@ -247,7 +289,7 @@ The proposed changes introduce clustering options for agricultural and rural are
 | Option 4 | Allowed and incentivized to gain back density |
 | Option 5 | Required, with minimum 70% of land deed-restricted to one parcel |
 
-## Road Requirements
+## Road requirements
 
 :pushpin: **Current requirements**
 
@@ -276,33 +318,17 @@ The proposed changes introduce more varied road requirements compared to the cur
 | Option 5 | Align with VDOT entrance types (PE, LVC, commercial). Standards must be met before building permits issued. |
 
 
-# Development Analysis
 
-```
-Quantitative summaries of historical residential development in Culpeper County, focused on units produced via property subdivision. Assessment of past subdivision approvals, building permits, and single-family home prices.
 
-* Chart the annual pace of subdivisions and resultant lots from 1993 to 2023
-* Compare lot creation with residential construction via building permit data
-* Examine historical prices and availability of new single-family homes built on subdivided lots
-* Highlight trends in square footage, number of bedrooms, lot coverage, and other attributes among new single-family homes
-```
 
-| Attribute | Major | Minor | 10 Acre | Family |
-|-------------------|----------------|----------------|-------------------|-----------------|
-| 1. Eligibility Criteria | No specific restrictions; applies when other division types are not applicable | Any existing parcel | Only in A-1 (Agricultural) or RA (Rural Residential) districts | In A-1, RA, RR, R-1, or R-2 districts; property owned for at least 5 years |
-| 2. Number of Lots Created | No specific limit | Up to 3 new lots plus remnant within a 5-year period | No specific limit mentioned | Single division per family member |
-| 3. Minimum Lot Size | As per zoning district requirements | As per zoning district requirements | 10 acres for each lot, including remnant | Minimum of zoning district or 1 acre, whichever is less |
-| 4. Road Access Requirements | As per VDOT standards | Existing street access | 50-foot wide easement to public street | 20-foot wide easement to public street |
-| 5. Review and Approval Process | Full preliminary and final plat review | Simplified review process | Simplified review process | Simplified review process |
-| 6. Development Standards | Full compliance with all subdivision standards | May be exempted from some standard procedures | May be exempted from some standard procedures | May be exempted from some standard procedures |
-| 7. Time Restrictions | None specified | No more than once every 5 years | None specified | Grantee cannot transfer for 5 years |
-| 8. Special Conditions or Restrictions | None specific to this type | Must not adversely affect remainder of parcel or adjoining property | Requires perpetual maintenance agreement for private roads | Only for immediate family members; affidavit required |
-| 9. Intended Purpose/Use | Large-scale residential development | Small-scale divisions of land | Large-lot rural development | Allowing property owners to give/sell land to family members |
+
+# Development Analysis {#sec-dev}
 
 From 1993 through 2023, Culpeper County approved approximately 4,569 new lots via subdivision. Most of these were created before the Great Recession, peaking at 728 in 2005. Following a historical low of 37 new lots in 2013, subdivision activity has steadily increased, and is now comparable to the "pre-boom" pace set between 1995 and 2005.
 
 ```{r}
 #| label: fig-subv-hist
+#| fig-cap: "Approved subdivision history (1993-2023)"
 
 subdiv_hist <- read_rds("data/subdiv_hist.rds")
 
@@ -326,10 +352,11 @@ subdiv_hist |>
 
 ```
 
-
+While most of the lots created over this period were the result of Major divisions, most of the actual plats were either Minor or Family divisions.
 
 ```{r}
 #| label: fig-subv-hist-type
+#| fig-cap: "Approved subdivision history by division type"
 
 subdiv_hist |> 
   filter(var != "Total") |> 
@@ -358,14 +385,49 @@ subdiv_hist |>
 
 ```
 
+Building permit approvals for new single-family homes from 2000 through 2023 mirror the trend in subdivision lot approvals. With the exception of the 2008–2010 period, the number of building permits issued per year always exceeded the respective number of new lots created. 
+
+There are two likely reasons for this. First, not all building permits issued were for new construction on subdivision lots. Second, the approval of a new residential lot may come well before the property owner is willing or able to build a home.
 
 ```{r}
+#| label: fig-subv-bp
+#| fig-cap: "Approval history of subdivision lots and building permits"
 
-#mls <- read_rds("data/mls_subdiv")
+cbps <- read_rds("data/cbps.rds") |> 
+  filter(type == "1-unit")
 
+subdiv_hist_tot <- subdiv_hist |> 
+  filter(year >= 2000, var == "Total")
+
+ggplot() +
+  geom_line(
+    data = subdiv_hist_tot,
+    aes(x = year, y = Lots),
+    color = pal[1]
+    ) +
+  geom_line(
+    data = cbps,
+    aes(x = year, y = bldgs),
+    color = pal[5]
+    ) +
+  scale_x_continuous(breaks = seq(2000, 2023, 2)) +
+  scale_y_continuous(
+    limits = c(0, 1600),
+    breaks = seq(0, 1700, 250),
+    expand = c(0.01,0.01)
+    ) +
+  add_zero_line() +
+  labs(
+    title = "Approval history of subdivision lots and building permits",
+    subtitle = "Annual number of approved <span style='color:#445ca9;'>**lots**</span> and single-family <span style='color:#a97a92;'>**building permits**</span>",
+    caption = "**Sources:** *Culpeper County Subdivision History 1993-2023* staff report and Census Building Permits Survey"
+  ) +
+  theme_hda() +
+  theme(
+    axis.text.x = element_text(angle = 90, vjust = 0.5)
+  )
 
 ```
-
 
 # Parcel Analysis
 
@@ -447,6 +509,7 @@ Methods:
 
 ```{r}
 #| label: fig-current
+#| fig-cap: "Most eligible parcels can create 1 or 2 new lots"
 
 current |> 
   mutate(
